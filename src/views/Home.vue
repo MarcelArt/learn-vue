@@ -3,7 +3,7 @@
 		<ul id="film-list">
 			<FilmMember
 				v-for="title in titles"
-				:title="title.original_title"
+				:title="title"
 				v-bind:key="title"
 			/>
 		</ul>
