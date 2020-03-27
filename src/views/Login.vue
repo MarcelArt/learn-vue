@@ -23,6 +23,16 @@
 				id="exampleInputPassword1"
 			/>
 		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Password</label>
+			<!-- v-model berarti mengikat komponen input ini dengan variabel password dari object data dibawah -->
+			<input
+				@change="onFileChanged"
+				type="file"
+				class="form-control"
+				id="exampleInputFile"
+			/>
+		</div>
 		<!-- v-on:click berarti ketika button ditekan memanggil fungsi login dari object methods dibawah -->
 		<button
 			v-on:click="login(username, password)"
@@ -45,7 +55,8 @@ export default {
 		return {
 			username: '',
 			password: '',
-			message: ''
+			message: '',
+			file: null
 		};
 	},
 	methods: { // fungsi2 yang akan digunakan di halaman ini didefinisikan disini
@@ -70,6 +81,14 @@ export default {
 				.catch(e => {
 					console.log({e}); //error handling
 				});
+		},
+		onFileChanged: (e) => {
+			let reader = new FileReader();
+			reader.readAsDataURL(e.target.files[0])
+			reader.onload = (res) => {
+				console.log('res.target.result', res.target.result);
+			}
+			console.log('e', e.target.files);
 		}
 	},
 	mounted: () => { //fungsi ini selalu dipanggil ketika masuk ke halaman ini
